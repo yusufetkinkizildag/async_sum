@@ -76,10 +76,10 @@ namespace etkin
         using C = typename B::value_type;
         auto const size{in1.size()};
         B whole_res(size);
-        std::vector<size_t> indices(processor_count, size / processor_count); // n,n,n,n,n,n,n,n... PROC_COUNT tane
+        std::vector<size_t> indices(processor_count, size / processor_count); // n,n,n,n,n,n,n,n... size=PROC_COUNT
         std::vector<std::unique_ptr<std::future<B>>> fupv(processor_count);
-        std::partial_sum(std::begin(indices), std::end(indices), std::begin(indices)); // n,2n,3n,4n.... PROC_COUNT tane
-        indices.insert(std::begin(indices), 0);                                        // 0,n,2n,3n,4n.... PROC_COUNT+1 tane
+        std::partial_sum(std::begin(indices), std::end(indices), std::begin(indices)); // n,2n,3n,4n.... size=PROC_COUNT
+        indices.insert(std::begin(indices), 0);                                        // 0,n,2n,3n,4n.... size=PROC_COUNT+1
         std::transform(std::cbegin(indices), std::cend(indices) - 1, std::cbegin(indices) + 1, std::begin(fupv),
         [&](auto const start, auto const end) noexcept
         {
@@ -94,7 +94,6 @@ namespace etkin
     }};
 } // namespace etkin
 
-//*************************************************************************************************************
 int main(int argc, char const *argv[])
 {
     static auto const processor_count{std::thread::hardware_concurrency()}; // 12 on my system
