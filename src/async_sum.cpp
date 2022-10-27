@@ -76,6 +76,7 @@ namespace etkin
         using C = typename B::value_type;
         auto const size{in1.size()};
         B whole_res(size);
+        auto const dv{std::div(size, processor_count)}; // quot ve rem
         std::vector<size_t> indices(processor_count, size / processor_count); // n,n,n,n,n,n,n,n... size=PROC_COUNT
         std::vector<std::unique_ptr<std::future<B>>> fupv(processor_count);
         std::partial_sum(std::begin(indices), std::end(indices), std::begin(indices)); // n,2n,3n,4n.... size=PROC_COUNT
