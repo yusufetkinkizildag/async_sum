@@ -1,5 +1,3 @@
-// g++ async_sum.cpp -lpthread ---> linux
-
 #include <iostream>
 #include <algorithm>
 #include <numeric>
