@@ -28,8 +28,17 @@ A basic cmake file to specify C++ standard, build type and compile options
 
 ## async_sum.cpp
 
-TODO
+```cpp
+template <class Function, class... Args>
+auto time_function_execution(Function &&callback, Args &&...args) noexcept
+```
+Returns the results of the function call and how much time did it take in terms of milliseconds as a [std::pair](https://en.cppreference.com/w/cpp/utility/pair). The arguments are [perfectly forwarded](https://www.modernescpp.com/index.php/perfect-forwarding) using [std::forward](https://en.cppreference.com/w/cpp/utility/forward)
 
+```cpp
+constexpr static auto print{[](auto const &v) noexcept
+```
+
+prints elements of the given vector using [std::copy](https://en.cppreference.com/w/cpp/algorithm/copy).
 
 ## Compiler
 ```console
